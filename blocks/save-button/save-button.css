@@ -1,0 +1,14 @@
+.save-button {
+  height: 50px;
+  background-color: #000;
+  border: none;
+  padding: 0;
+
+  color: #fff;
+}
+
+@media screen and (max-width: 566px) {
+  .save-button {
+    height: 46px;
+  }
+}
