@@ -4,6 +4,7 @@
   padding: 0;
   background-color: #000;
   border: 2px solid #fff;
+  border-radius: 2px;
   background: url(../../images/plus.svg);
   background-repeat: no-repeat;
   background-size: 22px 22px;
@@ -13,7 +14,6 @@
 }
 
 .add-button:hover {
-  background: url(../../images/plus_hover.svg);
   background-repeat: no-repeat;
   background-size: 22px 22px;
   background-position: 50% 50%;

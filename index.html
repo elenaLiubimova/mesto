@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
-  <title>Mesto</title>
+  <title lang="en">Mesto</title>
 </head>
 <body class="root">
   <header class="header header-container">
@@ -16,9 +16,9 @@
       <div class="profile__info-and-edit">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
         <p class="profile__subtitle">Исследователь океана</p>
-        <button class="edit-button" type="button"></button>
+        <button class="edit-button" type="button" aria-label="Кнопка редактирования профиля"></button>
       </div>
-      <button class="add-button"></button>
+      <button class="add-button" type="button" aria-label="Кнопка добавления фотографий"></button>
     </section>
     <section class="photos container" aria-label="Карточки с фотографиями">
       <ul class="photos__cards">
@@ -26,61 +26,61 @@
           <img class="card__image" src="./images/karachaevsk.jpg" alt="Древний храм в горах">
           <div class="card__title-and-like">
             <h2 class="card__title">Карачаевск</h2>
-            <button class="like-button like-button_inactive" type="button"></button>
+            <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
           </div>
         </li>
         <li class="card">
           <img class="card__image" src="./images/elbrus.jpg" alt="гора Эльбрус: вид издалека">
           <div class="card__title-and-like">
             <h2 class="card__title">Гора Эльбрус</h2>
-            <button class="like-button like-button_inactive" type="button"></button>
+            <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
           </div>
         </li>
         <li class="card">
           <img class="card__image" src="./images/dombai.jpg" alt="Домбай: вид на горный хребет">
           <div class="card__title-and-like">
             <h2 class="card__title">Домбай</h2>
-            <button class="like-button like-button_inactive" type="button"></button>
+            <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
           </div>
         </li>
         <li class="card">
           <img class="card__image" src="./images/baykal.jpeg" alt="Тоннель кругобайкальской железной дороги">
           <div class="card__title-and-like">
             <h2 class="card__title">Кругобайкальская железная дорога</h2>
-            <button class="like-button like-button_inactive" type="button"></button>
+            <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
           </div>
         </li>
         <li class="card">
           <img class="card__image" src="./images/krasnaya_polyana.jpg" alt="Желтые и фиолетовые цветы в горах">
           <div class="card__title-and-like">
             <h2 class="card__title">Красная поляна</h2>
-            <button class="like-button like-button_inactive" type="button"></button>
+            <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
           </div>
         </li>
         <li class="card">
           <img class="card__image" src="./images/kaliningradskaya_obl.jpg" alt="Закат на Балтийском море">
           <div class="card__title-and-like">
             <h2 class="card__title">Калининградская область</h2>
-            <button class="like-button like-button_inactive" type="button"></button>
+            <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
           </div>
         </li>
-      </ul>  
-    </section>
-    <section class="popup" aria-label="Окно редактирования профиля">
-      <div class="popup__container">
-        <form class="edit-form">
-          <h2 class="edit-form__title">Редактировать профиль</h2>
-          <input class="edit-form__item" type="text" name="name">
-          <input class="edit-form__item" type="text" name="job">
-          <button class="save-button" type="submit">Сохранить</button>
-        </form>
-        <button class="popup__close-button" type="button"></button>
-      </div>
+      </ul>
     </section>
   </main>
   <footer class="footer container">
-    <p class="footer__info">&copy; 2022 Mesto Russia</p>
+    <p class="footer__info" lang="en">&copy; 2022 Mesto Russia</p>
   </footer>
-  <script src="./pages/index.js"></script>
+  <div class="popup">
+    <div class="popup__container">
+      <form class="edit-form" name="edit-profile">
+        <h2 class="edit-form__title">Редактировать профиль</h2>
+        <input class="edit-form__item" type="text" name="name" placeholder="Введите имя">
+        <input class="edit-form__item" type="text" name="job" placeholder="Введите профессию">
+        <button class="save-button" type="submit" aria-label="Кнопка сохранения данных профиля">Сохранить</button>
+      </form>
+      <button class="popup__close-button" type="button" aria-label="Кнопка закрытия окна редактирования профиля"></button>
+    </div>
+  </div>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>

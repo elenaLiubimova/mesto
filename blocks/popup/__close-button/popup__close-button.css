@@ -16,7 +16,7 @@
 }
 
 .popup__close-button:hover {
-  background: url(../../../images/close_icon_hover.svg);
+  opacity: .6;
   
   cursor: pointer;
 }
