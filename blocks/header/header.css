@@ -1,9 +1,22 @@
 .header {
+  position: relative;
+  
   padding: 45px 0 41px 0;
-  border-bottom: 1px solid #545454;
 }
 
-@media screen and (max-width: 425px) {
+.header::after {
+  position: absolute;
+  top: 100%;
+
+  display: block;
+  height: 1px;
+  width: 100%;
+  background-color: rgba(32.9, 32.9, 32.9, .7);
+
+  content: ' ';
+}
+
+@media screen and (max-width: 489px) {
   .header {
     padding: 28px 0 31.6px 0;
   } 
