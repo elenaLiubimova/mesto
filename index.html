@@ -22,65 +22,50 @@
     </section>
     <section class="photos container" aria-label="Карточки с фотографиями">
       <ul class="photos__cards">
-        <li class="card">
-          <img class="card__image" src="./images/karachaevsk.jpg" alt="Древний храм в горах">
-          <div class="card__title-and-like">
-            <h2 class="card__title">Карачаевск</h2>
-            <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__image" src="./images/elbrus.jpg" alt="гора Эльбрус: вид издалека">
-          <div class="card__title-and-like">
-            <h2 class="card__title">Гора Эльбрус</h2>
-            <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__image" src="./images/dombai.jpg" alt="Домбай: вид на горный хребет">
-          <div class="card__title-and-like">
-            <h2 class="card__title">Домбай</h2>
-            <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__image" src="./images/baykal.jpeg" alt="Тоннель кругобайкальской железной дороги">
-          <div class="card__title-and-like">
-            <h2 class="card__title">Кругобайкальская железная дорога</h2>
-            <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__image" src="./images/krasnaya_polyana.jpg" alt="Желтые и фиолетовые цветы в горах">
-          <div class="card__title-and-like">
-            <h2 class="card__title">Красная поляна</h2>
-            <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__image" src="./images/kaliningradskaya_obl.jpg" alt="Закат на Балтийском море">
-          <div class="card__title-and-like">
-            <h2 class="card__title">Калининградская область</h2>
-            <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
-          </div>
-        </li>
       </ul>
     </section>
   </main>
   <footer class="footer container">
     <p class="footer__info" lang="en">&copy; 2022 Mesto Russia</p>
   </footer>
-  <div class="popup">
+  <div class="popup popup_type_profile">
     <div class="popup__container">
-      <form class="edit-form" name="edit-profile">
+      <form class="edit-form" name="profile">
         <h2 class="edit-form__title">Редактировать профиль</h2>
-        <input class="edit-form__item" type="text" name="name" placeholder="Введите имя">
-        <input class="edit-form__item" type="text" name="job" placeholder="Введите профессию">
+        <input class="edit-form__item" type="text" name="name" placeholder="Имя">
+        <input class="edit-form__item" type="text" name="job" placeholder="Профессия">
         <button class="save-button" type="submit" aria-label="Кнопка сохранения данных профиля">Сохранить</button>
       </form>
-      <button class="popup__close-button" type="button" aria-label="Кнопка закрытия окна редактирования профиля"></button>
+      <button class="close-button" type="button" aria-label="Кнопка закрытия окна редактирования профиля"></button>
     </div>
   </div>
+  <div class="popup popup_type_add-photo">
+    <div class="popup__container">
+      <form class="edit-form" name="photo">
+        <h2 class="edit-form__title">Новое место</h2>
+        <input class="edit-form__item" type="text" name="place" placeholder="Название">
+        <input class="edit-form__item" type="text" name="photo" placeholder="Ссылка на картинку">
+        <button class="save-button" type="submit" aria-label="Кнопка сохранения данных профиля">Создать</button>
+      </form>
+      <button class="close-button" type="button" aria-label="Кнопка закрытия окна добавления фото"></button>
+    </div>
+  </div>
+  <div class="popup popup_type_photo">
+    <div class="popup__container popup__container_type_photo">
+      <img class="full-photo">
+      <button class="close-button" type="button" aria-label="Кнопка закрытия окна полноразмерного фото"></button>
+    </div>
+  </div>
+  <template id="card-template">
+    <li class="card">
+      <button class="delete-button" type="button" aria-label="Кнопка удаления фото"></button>
+      <img class="card__image">
+      <div class="card__title-and-like">
+        <h2 class="card__title"></h2>
+        <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
+      </div>
+    </li>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 </html>
