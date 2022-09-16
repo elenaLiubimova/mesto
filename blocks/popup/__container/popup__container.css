@@ -1,5 +1,5 @@
 .popup__container {
-  position: absolute;
+  position: relative;
 
   display: flex;
   width: 100%;
