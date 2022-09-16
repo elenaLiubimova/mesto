@@ -8,3 +8,7 @@
   object-fit: cover;
   object-position: center center
 }
+
+.card__image:hover {
+  cursor: pointer;
+}
