@@ -1,7 +1,9 @@
 .popup__container_type_photo {
   margin: 0 auto;
   
+  width: auto;
   max-width: 75vw;
+  height: auto;
   max-height: 75vh;
   border-radius: 0;
   background-color: #fff;

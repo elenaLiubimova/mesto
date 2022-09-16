@@ -21,8 +21,7 @@
       <button class="add-button" type="button" aria-label="Кнопка добавления фотографий"></button>
     </section>
     <section class="photos container" aria-label="Карточки с фотографиями">
-      <ul class="photos__cards">
-      </ul>
+      <ul class="photos__cards"></ul>
     </section>
   </main>
   <footer class="footer container">
@@ -52,14 +51,17 @@
   </div>
   <div class="popup popup_type_photo">
     <div class="popup__container popup__container_type_photo">
-      <img class="full-photo">
+      <figure class="full-photo-container">
+        <img class="full-photo"  src="#" alt="Альтернативный текст фото">
+        <figcaption class="full-photo-container__caption"></figcaption>
+      </figure>
       <button class="close-button" type="button" aria-label="Кнопка закрытия окна полноразмерного фото"></button>
     </div>
   </div>
   <template id="card-template">
     <li class="card">
       <button class="delete-button" type="button" aria-label="Кнопка удаления фото"></button>
-      <img class="card__image">
+      <img class="card__image" src="#" alt="Альтернативный текст фото">
       <div class="card__title-and-like">
         <h2 class="card__title"></h2>
         <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
