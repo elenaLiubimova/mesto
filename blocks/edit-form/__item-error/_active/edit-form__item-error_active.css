@@ -1,4 +1,9 @@
 .edit-form__item-error_active {
+  position: absolute;
+  
+  top: 45px;
+  left: 0;
+  
   color: rgba(255, 0, 0, 1);
   font-weight: 400;
   font-size: 12px;

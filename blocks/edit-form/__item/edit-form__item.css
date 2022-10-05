@@ -1,7 +1,8 @@
 .edit-form__item {
   border: 0;
+  width: 100%;
   height: 40px;
-  margin-bottom: 27px;
+  padding: 0;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   
   color: #000;
@@ -10,21 +11,6 @@
   line-height: 1.2;
 }
 
-.edit-form__item:nth-last-of-type(1) {
-  margin-bottom: 48px;
-}
-
 .edit-form__item:focus {
   outline: 0;
-}
-
-@media screen and (max-width: 566px) {
-  .edit-form__item {
-    height: 40px;
-    margin-bottom: 17px;
-  }
-  
-  .edit-form__item:nth-last-of-type(1) {
-    margin-bottom: 45px;
-  }
 }

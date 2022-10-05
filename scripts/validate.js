@@ -1,11 +1,3 @@
-// const editForm = document.forms.profile;
-// const photoForm = document.forms.photo;
-// const nameInput = document.forms.profile.elements.name;
-// const jobInput = document.forms.profile.elements.job;
-// const placeInput = document.forms.photo.elements.place;
-// const photoInput = document.forms.photo.elements.photo;
-// const formError = editForm.querySelector(`.${nameInput.id}-error`);
-
 //Функция вывода ошибки
 function showInputError(formElement, inputElement, errorMessage) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -32,16 +24,20 @@ function checkInputValidity(formElement, inputElement) {
   }
 };
 
+// Функция установки слушателей полям ввода
 function setEventListeners(formElement) {
   const inputList = Array.from(formElement.querySelectorAll('.edit-form__item'));
-  console.log(inputList);
+  const buttonElement = formElement.querySelector('.save-button');
+  toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
     });
   });
 }
 
+// Функция валидации форм
 function enableValidation() {
   const formList = Array.from(document.querySelectorAll('.edit-form'));
   formList.forEach((formElement) => {
@@ -53,3 +49,19 @@ function enableValidation() {
 }
 
 enableValidation();
+
+// Функция проверки на невалидное поле
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+// Функция переключения состояния кнопки
+function toggleButtonState(inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('save-button_disabled');
+  } else {
+    buttonElement.classList.remove('save-button_disabled');
+  }
+}
