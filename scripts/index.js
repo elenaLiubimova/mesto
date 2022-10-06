@@ -44,7 +44,8 @@ const fullPhotoContainerCaption = document.querySelector(
 const cardTemplate = document.querySelector('#card-template').content;
 const placeInput = document.forms.photo.elements.place;
 const photoInput = document.forms.photo.elements.photo;
-const popup = document.querySelector('.popup');
+// const popup = document.querySelector('.popup');
+const popups = document.querySelectorAll('.popup');
 const popupContainer = document.querySelector('.popup__container');
 
 // Функция открытия попапа
@@ -57,6 +58,14 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('close-button')) {
+      closePopup(popup);
+    }
+  });
+});
+
 // Функция закрытия попапа кнопкой Escape
 function closePopupByEscapeButton(evt) {
   if (evt.key === 'Escape') {
@@ -67,16 +76,6 @@ function closePopupByEscapeButton(evt) {
 
 // Слушатель закрытия попапа кнопкой Escape
 document.addEventListener('keydown', closePopupByEscapeButton);
-
-// Функция закрытия попапа кликом по оверлею
-function closePopupByClickOnOverlay(evt) {
-  if (evt.target !== popupContainer) {
-    popup.classList.remove('popup_opened');
-  }
-}
-
-//Слушатель закрытия попапа кликом по оверлею
-popup.addEventListener('click', closePopupByClickOnOverlay);
 
 // Функция установки имени из профиля при открытии формы
 function setProfileInputValue() {
@@ -102,11 +101,11 @@ addButton.addEventListener('click', () => {
   openPopup(popupTypeAddPhoto);
 });
 
-// Установка слушателей на все кнопки закрытия попапов
-closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
-});
+// // Установка слушателей на все кнопки закрытия попапов
+// closeButtons.forEach((button) => {
+//   const popup = button.closest('.popup');
+//   button.addEventListener('click', () => closePopup(popup));
+// });
 
 // Обработчик формы редактирования профиля
 function handleProfileFormSubmit(evt) {
