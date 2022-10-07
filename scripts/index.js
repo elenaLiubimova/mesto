@@ -50,6 +50,7 @@ const popupContainer = document.querySelector(".popup__container");
 // Функция открытия попапа
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener("keydown", closePopupByEscapeButton);
 }
 
 // Функция закрытия попапа
@@ -74,14 +75,9 @@ function closePopupByEscapeButton(evt) {
   if (evt.key === "Escape") {
     const openedPopup = document.querySelector(".popup_opened");
     closePopup(openedPopup);
+    document.removeEventListener("keydown", closePopupByEscapeButton);
   }
 }
-
-// Слушатель закрытия попапа кнопкой Escape
-document.addEventListener("keydown", closePopupByEscapeButton);
-
-// Удаление слушателя закрытия попапа кнопкой Escape
-document.removeEventListener("keydown", closePopupByEscapeButton);
 
 // Функция установки имени из профиля при открытии формы
 function setProfileInputValue() {
