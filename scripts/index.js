@@ -44,6 +44,8 @@ const fullPhotoContainerCaption = document.querySelector(
 const cardTemplate = document.querySelector("#card-template").content;
 const placeInput = document.forms.photo.elements.place;
 const photoInput = document.forms.photo.elements.photo;
+const popups = document.querySelectorAll(".popup");
+const popupContainer = document.querySelector(".popup__container");
 
 // Функция открытия попапа
 function openPopup(popup) {
@@ -55,27 +57,67 @@ function closePopup(popup) {
   popup.classList.remove("popup_opened");
 }
 
+// Обработчик закрытия всех попапов
+popups.forEach((popup) => {
+  popup.addEventListener("mousedown", (evt) => {
+    if (
+      evt.target.classList.contains("popup_opened") ||
+      evt.target.classList.contains("close-button")
+    ) {
+      closePopup(popup);
+    }
+  });
+});
+
+// Функция закрытия попапа кнопкой Escape
+function closePopupByEscapeButton(evt) {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
+  }
+}
+
+// Слушатель закрытия попапа кнопкой Escape
+document.addEventListener("keydown", closePopupByEscapeButton);
+
+// Удаление слушателя закрытия попапа кнопкой Escape
+document.removeEventListener("keydown", closePopupByEscapeButton);
+
 // Функция установки имени из профиля при открытии формы
 function setProfileInputValue() {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
 }
 
-// "Слушатель" кнопки редактирования профиля
+// Функция сброса полей при открытии попапа добавления фото
+function resetPhotoInputValue() {
+  placeInput.value = "";
+  photoInput.value = "";
+}
+
+// Функция сброса полей ошибок при открытии попапа
+function resetErrorValue(formElement, ...inputElements) {
+  const errorElements = formElement.querySelectorAll(`.edit-form__item-error`);
+  errorElements.forEach((errorElement) => {
+    errorElement.textContent = "";
+  });
+  inputElements.forEach((inputElement) => {
+    inputElement.classList.remove("edit-form__item_type_error");
+  });
+}
+
+// Слушатель кнопки редактирования профиля
 editButton.addEventListener("click", () => {
   setProfileInputValue();
+  resetErrorValue(editForm, nameInput, jobInput);
   openPopup(popupTypeProfile);
 });
 
-// "Слушатель" кнопки открытия фото
+// Слушатель кнопки добавления фото
 addButton.addEventListener("click", () => {
+  resetPhotoInputValue();
+  resetErrorValue(photoForm, placeInput, photoInput);
   openPopup(popupTypeAddPhoto);
-});
-
-// Установка "слушателей" на все кнопки закрытия попапов
-closeButtons.forEach((button) => {
-  const popup = button.closest(".popup");
-  button.addEventListener("click", () => closePopup(popup));
 });
 
 // Обработчик формы редактирования профиля
@@ -86,7 +128,7 @@ function handleProfileFormSubmit(evt) {
   closePopup(popupTypeProfile);
 }
 
-// "Слушатель" формы редактирования профиля
+// Слушатель формы редактирования профиля
 editForm.addEventListener("submit", handleProfileFormSubmit);
 
 // Функция удаления карточки
@@ -108,7 +150,7 @@ function openFullPhoto(link, name) {
   fullPhotoContainerCaption.textContent = name;
 }
 
-// Функция создания карточки и добавления "слушателей" ее элементам
+// Функция создания карточки и добавления слушателей ее элементам
 function createCardElement(link, name) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
@@ -124,7 +166,7 @@ function createCardElement(link, name) {
   return cardElement;
 }
 
-// функция отрисовки карточек из массива
+// Функция отрисовки карточек из массива
 function renderCards(array) {
   array.forEach((el) => {
     photosCards.append(createCardElement(el.link, el.name));
@@ -142,5 +184,5 @@ function handlePhotoFormSubmit(evt) {
   closePopup(popupTypeAddPhoto);
 }
 
-// "Слушатель" формы добавления карточки
+// Слушатель формы добавления карточки
 photoForm.addEventListener("submit", handlePhotoFormSubmit);
