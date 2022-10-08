@@ -33,6 +33,8 @@ const photosCards = document.querySelector(".photos__cards");
 const addButton = document.querySelector(".add-button");
 const popupTypeProfile = document.querySelector(".popup_type_profile");
 const popupTypeAddPhoto = document.querySelector(".popup_type_add-photo");
+const popupTypeAddPhotoSaveButton =
+  popupTypeAddPhoto.querySelector(".save-button");
 const popupTypePhoto = document.querySelector(".popup_type_photo");
 const editForm = document.forms.profile;
 const photoForm = document.forms.photo;
@@ -56,6 +58,7 @@ function openPopup(popup) {
 // Функция закрытия попапа
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closePopupByEscapeButton);
 }
 
 // Обработчик закрытия всех попапов
@@ -75,7 +78,6 @@ function closePopupByEscapeButton(evt) {
   if (evt.key === "Escape") {
     const openedPopup = document.querySelector(".popup_opened");
     closePopup(openedPopup);
-    document.removeEventListener("keydown", closePopupByEscapeButton);
   }
 }
 
@@ -83,12 +85,6 @@ function closePopupByEscapeButton(evt) {
 function setProfileInputValue() {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
-}
-
-// Функция сброса полей при открытии попапа добавления фото
-function resetPhotoInputValue() {
-  placeInput.value = "";
-  photoInput.value = "";
 }
 
 // Функция сброса полей ошибок при открытии попапа
@@ -111,7 +107,12 @@ editButton.addEventListener("click", () => {
 
 // Слушатель кнопки добавления фото
 addButton.addEventListener("click", () => {
-  resetPhotoInputValue();
+  toggleButtonState(
+    [placeInput, photoInput],
+    popupTypeAddPhotoSaveButton,
+    validationObject
+  );
+  photoForm.reset();
   resetErrorValue(photoForm, placeInput, photoInput);
   openPopup(popupTypeAddPhoto);
 });

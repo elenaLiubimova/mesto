@@ -34,16 +34,17 @@ function hideInputError(formElement, inputElement, validationObj) {
 }
 
 // Функция проверки валидности поля
-function checkInputValidity(formElement, inputElement) {
+function checkInputValidity(formElement, inputElement, validationObj) {
+  const { formSelector, ...rest } = validationObj;
   if (!inputElement.validity.valid) {
     showInputError(
       formElement,
       inputElement,
       inputElement.validationMessage,
-      validationObject
+      validationObj
     );
   } else {
-    hideInputError(formElement, inputElement, validationObject);
+    hideInputError(formElement, inputElement, validationObj);
   }
 }
 
@@ -63,11 +64,11 @@ function setEventListeners(formElement, validationObj) {
   const { submitButtonSelector } = validationObj;
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const buttonElement = formElement.querySelector(submitButtonSelector);
-  toggleButtonState(inputList, buttonElement, validationObject);
+  toggleButtonState(inputList, buttonElement, validationObj);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement, validationObject);
+      checkInputValidity(formElement, inputElement, validationObj);
+      toggleButtonState(inputList, buttonElement, validationObj);
     });
   });
 }
@@ -77,10 +78,7 @@ function enableValidation(validationObj) {
   const { formSelector } = validationObj;
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
-    formElement.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-    });
-    setEventListeners(formElement, validationObject);
+    setEventListeners(formElement, validationObj);
   });
 }
 
