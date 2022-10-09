@@ -107,12 +107,12 @@ editButton.addEventListener("click", () => {
 
 // Слушатель кнопки добавления фото
 addButton.addEventListener("click", () => {
+  photoForm.reset();
   toggleButtonState(
     [placeInput, photoInput],
     popupTypeAddPhotoSaveButton,
     validationObject
   );
-  photoForm.reset();
   resetErrorValue(photoForm, placeInput, photoInput);
   openPopup(popupTypeAddPhoto);
 });
