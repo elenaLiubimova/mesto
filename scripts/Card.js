@@ -1,15 +1,9 @@
-import { openPopup } from "./utils.js";
-import {
-  popupTypePhoto,
-  fullPhoto,
-  fullPhotoContainerCaption,
-} from "./constants.js";
-
 export class Card {
-  constructor(link, name, cardTemplateSelector) {
+  constructor(link, name, cardTemplateSelector, openFullPhoto) {
     this._link = link;
     this._name = name;
     this._cardTemplateSelector = cardTemplateSelector;
+    this._openFullPhoto = openFullPhoto;
   }
 
   // Метод получения разметки из темплейта
@@ -28,8 +22,8 @@ export class Card {
 
   // Метод обработки удаления карточки
   _deleteCard() {
-    const cardItem = this._deleteButton.closest(".card");
-    cardItem.remove();
+    this.cardElement.remove();
+    this.cardElement = null;
   }
 
   // Метод обработки лайка
@@ -37,30 +31,22 @@ export class Card {
     this._likeButton.classList.toggle("like-button_inactive");
   }
 
-  // Метод открытия полноразмерного фото в отдельном попапе
-  _openFullPhoto(link, name) {
-    openPopup(popupTypePhoto);
-    fullPhoto.src = link;
-    fullPhoto.alt = name;
-    fullPhotoContainerCaption.textContent = name;
-  }
-
   // Метод наложения обрабочиков событий
-  _setEventListeners(link, name) {
+  _setEventListeners() {
     this._deleteButton.addEventListener("click", () => this._deleteCard());
     this._likeButton.addEventListener("click", () => this._toggleLike());
     this._cardImage.addEventListener("click", () =>
-      this._openFullPhoto(link, name)
+      this._openFullPhoto(this._link, this._name)
     );
   }
 
   // Публичный метод, который возвращает работоспособный и наполненный данными элемент карточки
-  createCardElement(link, name) {
+  createCardElement() {
     this._getMarkupFromTemplate();
-    this._setEventListeners(link, name);
-    this._cardImage.src = link;
-    this._cardImage.alt = name;
-    this._cardTitle.textContent = name;
+    this._setEventListeners();
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    this._cardTitle.textContent = this._name;
     return this.cardElement;
   }
 }

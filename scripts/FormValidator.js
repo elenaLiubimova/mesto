@@ -34,9 +34,16 @@ export class FormValidator {
     this._errorElement.textContent = "";
   }
 
+  // Метод очистки ошибок и управления кнопками
+  resetValidation() {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+  }
+
   // Метод проверки валидности поля
   _checkInputValidity(inputElement) {
-    const { formSelector, ...rest } = this._validationObject;
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
@@ -76,10 +83,6 @@ export class FormValidator {
 
   // Метод валидации форм (публичный)
   enableValidation() {
-    const { formSelector } = this._validationObject;
-    const formList = Array.from(document.querySelectorAll(formSelector));
-    formList.forEach((_formElement) => {
-      this._setEventListeners();
-    });
+    this._setEventListeners();
   }
 }
