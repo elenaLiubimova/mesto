@@ -15,6 +15,9 @@ import {
   photoInput,
   popups,
   validationObject,
+  popupTypePhoto,
+  fullPhoto,
+  fullPhotoContainerCaption,
 } from "./constants.js";
 
 import { Card } from "./Card.js";
@@ -24,6 +27,9 @@ import { FormValidator } from "./FormValidator.js";
 import { openPopup } from "./utils.js";
 
 import { closePopup } from "./utils.js";
+
+const profileValidation = new FormValidator(validationObject, editForm);
+const newCardValidation = new FormValidator(validationObject, photoForm);
 
 // Обработчик закрытия всех попапов
 popups.forEach((popup) => {
@@ -43,36 +49,11 @@ function setProfileInputValue() {
   jobInput.value = profileSubtitle.textContent;
 }
 
-// Функция сброса полей ошибок при открытии попапа
-function resetErrorValue(formElement, ...inputElements) {
-  const errorElements = formElement.querySelectorAll(`.edit-form__item-error`);
-  errorElements.forEach((errorElement) => {
-    errorElement.textContent = "";
-  });
-  inputElements.forEach((inputElement) => {
-    inputElement.classList.remove("edit-form__item_type_error");
-  });
-}
-
 // Слушатель кнопки редактирования профиля
 editButton.addEventListener("click", () => {
+  profileValidation.resetValidation();
   setProfileInputValue();
-  resetErrorValue(editForm, nameInput, jobInput);
   openPopup(popupTypeProfile);
-});
-
-// Функция валидации форм
-function validateForm(form) {
-  const formValidator = new FormValidator(validationObject, form);
-  formValidator.enableValidation();
-}
-
-// Слушатель кнопки добавления фото
-addButton.addEventListener("click", () => {
-  photoForm.reset();
-  validateForm(photoForm);
-  resetErrorValue(photoForm, placeInput, photoInput);
-  openPopup(popupTypeAddPhoto);
 });
 
 // Обработчик формы редактирования профиля
@@ -84,15 +65,36 @@ function handleProfileFormSubmit(evt) {
 }
 
 // Валидация формы редактирования профиля
-validateForm(editForm);
+profileValidation.enableValidation();
 
 // Слушатель формы редактирования профиля
 editForm.addEventListener("submit", handleProfileFormSubmit);
 
+// Слушатель кнопки добавления фото
+addButton.addEventListener("click", () => {
+  photoForm.reset();
+  newCardValidation.resetValidation();
+  openPopup(popupTypeAddPhoto);
+});
+
+// Функция открытия полноразмерного фото в отдельном попапе
+function openFullPhoto(link, name) {
+  fullPhoto.src = link;
+  fullPhoto.alt = name;
+  fullPhotoContainerCaption.textContent = name;
+  openPopup(popupTypePhoto);
+}
+
+// Функция создания новой карточки
+function createCard(link, name, cardTemplateSelector) {
+  const card = new Card(link, name, cardTemplateSelector, openFullPhoto);
+  return card;
+}
+
 // Функция отрисовки карточек из массива
 function renderCards(array) {
   array.forEach((el) => {
-    const card = new Card(el.link, el.name, "#card-template");
+    const card = createCard(el.link, el.name, "#card-template");
     photosCards.append(card.createCardElement(el.link, el.name));
   });
 }
@@ -100,10 +102,13 @@ function renderCards(array) {
 // Отрисовка дефолтных карточек
 renderCards(initialCards);
 
+// Валидация формы добавления карточки
+newCardValidation.enableValidation();
+
 // Обработчик формы добавления карточки
 function handlePhotoFormSubmit(evt) {
   evt.preventDefault();
-  const card = new Card(photoInput.value, placeInput.value, "#card-template");
+  const card = createCard(photoInput.value, placeInput.value, "#card-template");
   photosCards.prepend(
     card.createCardElement(photoInput.value, placeInput.value)
   );
