@@ -51,8 +51,8 @@ function setProfileInputValue() {
 
 // Слушатель кнопки редактирования профиля
 editButton.addEventListener("click", () => {
-  profileValidation.resetValidation();
   setProfileInputValue();
+  profileValidation.resetValidation();
   openPopup(popupTypeProfile);
 });
 
@@ -88,14 +88,14 @@ function openFullPhoto(link, name) {
 // Функция создания новой карточки
 function createCard(link, name, cardTemplateSelector) {
   const card = new Card(link, name, cardTemplateSelector, openFullPhoto);
-  return card;
+  return card.createCardElement();
 }
 
 // Функция отрисовки карточек из массива
 function renderCards(array) {
   array.forEach((el) => {
     const card = createCard(el.link, el.name, "#card-template");
-    photosCards.append(card.createCardElement(el.link, el.name));
+    photosCards.append(card);
   });
 }
 
@@ -109,10 +109,7 @@ newCardValidation.enableValidation();
 function handlePhotoFormSubmit(evt) {
   evt.preventDefault();
   const card = createCard(photoInput.value, placeInput.value, "#card-template");
-  photosCards.prepend(
-    card.createCardElement(photoInput.value, placeInput.value)
-  );
-  evt.target.reset();
+  photosCards.prepend(card);
   closePopup(popupTypeAddPhoto);
 }
 
