@@ -32,16 +32,16 @@ const profileValidation = new FormValidator(validationObject, editForm);
 const newCardValidation = new FormValidator(validationObject, photoForm);
 
 // Обработчик закрытия всех попапов
-popups.forEach((popup) => {
-  popup.addEventListener("mousedown", (evt) => {
-    if (
-      evt.target.classList.contains("popup_opened") ||
-      evt.target.classList.contains("close-button")
-    ) {
-      closePopup(popup);
-    }
-  });
-});
+// popups.forEach((popup) => {
+//   popup.addEventListener("mousedown", (evt) => {
+//     if (
+//       evt.target.classList.contains("popup_opened") ||
+//       evt.target.classList.contains("close-button")
+//     ) {
+//       closePopup(popup);
+//     }
+//   });
+// });
 
 // Функция установки имени из профиля при открытии формы
 function setProfileInputValue() {
@@ -78,12 +78,12 @@ addButton.addEventListener("click", () => {
 });
 
 // Функция открытия полноразмерного фото в отдельном попапе
-function openFullPhoto(link, name) {
-  fullPhoto.src = link;
-  fullPhoto.alt = name;
-  fullPhotoContainerCaption.textContent = name;
-  openPopup(popupTypePhoto);
-}
+// function openFullPhoto(link, name) {
+//   fullPhoto.src = link;
+//   fullPhoto.alt = name;
+//   fullPhotoContainerCaption.textContent = name;
+//   openPopup(popupTypePhoto);
+// }
 
 // Функция создания новой карточки
 function createCard(link, name, cardTemplateSelector) {
