@@ -24,6 +24,8 @@ import { Card } from "./Card.js";
 
 import { FormValidator } from "./FormValidator.js";
 
+import { Section } from "./Section.js";
+
 import { openPopup } from "./utils.js";
 
 import { closePopup } from "./utils.js";
@@ -91,16 +93,20 @@ function createCard(link, name, cardTemplateSelector) {
   return card.createCardElement();
 }
 
-// Функция отрисовки карточек из массива
-function renderCards(array) {
-  array.forEach((el) => {
-    const card = createCard(el.link, el.name, "#card-template");
-    photosCards.append(card);
-  });
-}
+// Создание секции для дефолтных карточек
+const cardList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item.link, item.name, "#card-template", open());
+    card.createCardElement();
+    cardList.addDefaultItem(card.cardElement);
+  },
+},
+".photos__cards"
+);
 
 // Отрисовка дефолтных карточек
-renderCards(initialCards);
+cardList.renderItems();
 
 // Валидация формы добавления карточки
 newCardValidation.enableValidation();
