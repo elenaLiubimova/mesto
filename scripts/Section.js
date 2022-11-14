@@ -11,7 +11,7 @@ export class Section {
     });
   }
 
-  addItem(element) {
-    document.querySelector(this._selector).prepend(element);
+  addItem(item) {
+    document.querySelector(this._selector).prepend(item);
   }
 }
