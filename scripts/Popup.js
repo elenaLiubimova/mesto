@@ -1,13 +1,13 @@
 export class Popup {
 	constructor(popupSelector) {
 		this._popupSelector = popupSelector;
-    this._popup = document.querySelector(this._popupSelector);
+	  this._popup = document.querySelector(this._popupSelector);
 	}
 
 	// Функция открытия попапа
   open() {
     this._popup.classList.add("popup_opened");
-		document.addEventListener("keydown", this._handleEscClose);
+		document.addEventListener("keydown", this._handleEscClose.bind(this));
 	}
 
 	// Функция закрытия попапа
@@ -19,7 +19,8 @@ export class Popup {
 	// Функция закрытия попапа кнопкой Escape
   _handleEscClose(evt) {
 		if (evt.key === "Escape") {
-			close();
+      this.close();
+      this._popup.classList.remove("popup_opened");
 		}
 	}
 
@@ -30,7 +31,7 @@ export class Popup {
         evt.target.classList.contains("popup_opened") ||
         evt.target.classList.contains("close-button")
       ) {
-        close();
+        this.close();
       }
     });
 	}

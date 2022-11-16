@@ -26,6 +26,8 @@ import { Section } from "./Section.js";
 
 import { PopupWithImage } from "./PopupWithImage.js";
 
+import { PopupWithForm } from "./PopupWithForm.js";
+
 const profileValidation = new FormValidator(validationObject, editForm);
 const newCardValidation = new FormValidator(validationObject, photoForm);
 
@@ -58,9 +60,52 @@ editForm.addEventListener("submit", handleProfileFormSubmit);
 
 // Слушатель кнопки добавления фото
 addButton.addEventListener("click", () => {
-  photoForm.reset();
+  // photoForm.reset();
   newCardValidation.resetValidation();
-  openPopup(popupTypeAddPhoto);
+  // openPopup(popupTypeAddPhoto);
+  const popupWithPhotoForm = new PopupWithForm( 
+    ".popup_type_add-photo", {
+      handleFormSubmit: () => {
+        evt.preventDefault();
+
+        // const card = createCard(photoInput.value, placeInput.value, "#card-template");
+        // photosCards.prepend(card);
+        // closePopup(popupTypeAddPhoto);
+
+        // Создание секции для добавленной карточки
+        const addedCard = new Section({
+          items: {
+            name: nameInput.value,
+            link: placeInput.value,
+          },
+          renderer: (item) => {
+            const card = new Card(
+              item.link,
+              item.name,
+              "#card-template",
+            { 
+              handleCardClick: () => {
+                const fullPhotoContainer = new PopupWithImage(".popup_type_photo", item.link, item.name);
+                fullPhotoContainer.setEventListeners();
+                fullPhotoContainer.open();
+              }
+            });
+
+            addedCard.addItem(card.createCardElement());
+          },
+        },
+        ".photos__cards"
+        );
+
+        // Отрисовка добавленной карточки
+        addedCard.renderItems();
+        
+      }
+  });
+ 
+  popupWithPhotoForm.setEventListeners(photoForm);
+
+  popupWithPhotoForm.open();
 });
 
 // Создание секции для дефолтных карточек
@@ -75,11 +120,11 @@ const cardList = new Section({
       handleCardClick: () => {
         const fullPhotoContainer = new PopupWithImage(".popup_type_photo", item.link, item.name);
         fullPhotoContainer.setEventListeners();
-        return fullPhotoContainer.open();
+        fullPhotoContainer.open();
       }
     });
-    card.createCardElement();
-    cardList.addDefaultItem(card.cardElement);
+
+    cardList.addDefaultItem(card.createCardElement());
   },
 },
 ".photos__cards"
@@ -92,12 +137,12 @@ cardList.renderItems();
 newCardValidation.enableValidation();
 
 // Обработчик формы добавления карточки
-function handlePhotoFormSubmit(evt) {
-  evt.preventDefault();
-  const card = createCard(photoInput.value, placeInput.value, "#card-template");
-  photosCards.prepend(card);
-  closePopup(popupTypeAddPhoto);
-}
+// function handlePhotoFormSubmit(evt) {
+//   evt.preventDefault();
+//   const card = createCard(photoInput.value, placeInput.value, "#card-template");
+//   photosCards.prepend(card);
+//   closePopup(popupTypeAddPhoto);
+// }
 
-// Слушатель формы добавления карточки
-photoForm.addEventListener("submit", handlePhotoFormSubmit);
+// // Слушатель формы добавления карточки
+// photoForm.addEventListener("submit", handlePhotoFormSubmit);
