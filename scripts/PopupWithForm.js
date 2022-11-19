@@ -3,10 +3,10 @@ import { Popup } from "./Popup.js";
 export class PopupWithForm extends Popup {
   constructor(popupSelector, { handleFormSubmit }) {
     super(popupSelector);
-    this.handleFormSubmit = handleFormSubmit;
-    this.forms = document.forms;
+    this._handleFormSubmit = handleFormSubmit;
+    this._form = this._popup.querySelector(".edit-form");
   }
-
+  
   _getInputValues() {
     this._inputList = this._form.querySelectorAll('.edit-form__item');
     this._formValues = {};
@@ -17,16 +17,21 @@ export class PopupWithForm extends Popup {
     return this._formValues;
   }
 
-  setEventListeners(form) {
-    form.addEventListener("submit", this.handleFormSubmit);
+  _handleEvent(evt) {
+    evt.preventDefault();
+    this._handleFormSubmit(this._getInputValues());
+  }
+
+  setEventListeners() {
+    this._form.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._handleFormSubmit(this._getInputValues());
+    });
 
     super.setEventListeners();
   }
 
-  // close(form) {
-  //   console.log(form);
-  //   // form.reset();
-    
-  //   super.close();
-  // }
+  resetForm() {
+    this._form.reset();
+  }
 }

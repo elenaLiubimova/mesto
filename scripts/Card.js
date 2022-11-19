@@ -3,7 +3,7 @@ export class Card {
     this._link = link;
     this._name = name;
     this._cardTemplateSelector = cardTemplateSelector;
-    this.handleCardClick = handleCardClick;
+    this._handleCardClick = handleCardClick;
   }
 
   // Метод получения разметки из темплейта
@@ -36,7 +36,7 @@ export class Card {
     this._deleteButton.addEventListener("click", () => this._deleteCard());
     this._likeButton.addEventListener("click", () => this._toggleLike());
     this._cardImage.addEventListener("click", () =>
-      this.handleCardClick()
+      this._handleCardClick()
     );
   }
 
@@ -47,7 +47,6 @@ export class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;
-    
     return this.cardElement;
   }
 }

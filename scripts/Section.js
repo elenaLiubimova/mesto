@@ -19,6 +19,6 @@ export class Section {
 
   //Метод добавления дефолтной карточки в контейнер
   addDefaultItem(item) {
-      document.querySelector(this._selector).append(item);
+    document.querySelector(this._selector).append(item);
   }
 }

@@ -24,7 +24,7 @@ export class Popup {
 		}
 	}
 
-	// Функция добавления слушателя клика
+	// Функция добавления слушателей формы 
   setEventListeners() {
     this._popup.addEventListener("mousedown", (evt) => {
       if (

@@ -1,8 +1,3 @@
-import {
-  fullPhoto,
-  fullPhotoContainerCaption,
-} from "./constants.js";
-
 import { Popup } from "./Popup.js";
 
 export class PopupWithImage extends Popup {
@@ -12,10 +7,10 @@ export class PopupWithImage extends Popup {
     this._name = name;
   }
 
-  open() {
-    fullPhoto.src = this._link;
-    fullPhoto.alt = this._name;
-    fullPhotoContainerCaption.textContent = this._name;
+  open(image, caption) {
+    image.src = this._link;
+    image.alt = this._name;
+    caption.textContent = this._name;
     super.open();
   }
 }
