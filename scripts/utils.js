@@ -16,6 +16,5 @@ export function createCard(item) {
       fullPhotoContainer.open(fullPhoto, fullPhotoContainerCaption);
     },
   });
-  console.log(card);
   return card.createCardElement();
 }

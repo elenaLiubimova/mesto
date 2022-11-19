@@ -18,7 +18,29 @@ import { createCard } from "./utils.js";
 const profileValidation = new FormValidator(validationObject, editForm);
 const newCardValidation = new FormValidator(validationObject, photoForm);
 
-// Установка слушателей валидации полям форм проекта
+const popupWithPhotoForm = new PopupWithForm(".popup_type_add-photo", {
+  handleFormSubmit: (item) => {
+    const newCard = createCard(item);
+    cardList.addItem(newCard);
+    popupWithPhotoForm.close();
+  },
+});
+
+popupWithPhotoForm.setEventListeners();
+
+const userInfo = new UserInfo({
+  nameSelector: "#name-input",
+  jobSelector: "#job-input",
+});
+
+const popupEditProfile = new PopupWithForm(".popup_type_profile", {
+  handleFormSubmit: () => {
+    popupEditProfile.close();
+    return userInfo.setUserInfo(profileTitle, profileSubtitle);
+  },
+});
+
+// Установка слушателей валидации полям форм
 newCardValidation.enableValidation();
 profileValidation.enableValidation();
 
@@ -35,41 +57,17 @@ const cardList = new Section(
 );
 
 // Отрисовка дефолтных карточек
-// cardList.renderItems();
+cardList.renderItems();
 
 // Слушатель кнопки добавления фото
 addButton.addEventListener("click", () => {
-
-  const popupWithPhotoForm = new PopupWithForm(".popup_type_add-photo", {
-    handleFormSubmit: (item) => {
-      const newCard = createCard(item);
-      console.log(newCard);
-      cardList.addItem(newCard);
-      popupWithPhotoForm.close();
-    },
-  });
-
   popupWithPhotoForm.resetForm();
   newCardValidation.resetValidation();
   popupWithPhotoForm.open();
-  popupWithPhotoForm.setEventListeners();
 });
 
 // Слушатель кнопки редактирования профиля
 editButton.addEventListener("click", () => {
-
-  const userInfo = new UserInfo({
-    nameSelector: "#name-input",
-    jobSelector: "#job-input",
-  });
-
-  const popupEditProfile = new PopupWithForm(".popup_type_profile", {
-    handleFormSubmit: () => {
-      popupEditProfile.close();
-      return userInfo.setUserInfo(profileTitle, profileSubtitle);
-    },
-  });
-
   popupEditProfile.resetForm();
   profileValidation.resetValidation();
   userInfo.getUserInfo(profileTitle, profileSubtitle);
