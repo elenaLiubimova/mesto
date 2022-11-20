@@ -1,5 +1,5 @@
-import { PopupWithImage } from "./PopupWithImage";
-import { Card } from "./Card.js";
+import { PopupWithImage } from "../components/PopupWithImage";
+import { Card } from "../components/Card.js";
 import { fullPhoto, fullPhotoContainerCaption } from "./constants";
 
 // Функция создания новой карточки

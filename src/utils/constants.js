@@ -1,8 +1,8 @@
-import elbrusImage from "../../images/elbrus.jpg";
-import dombaiImage from "../../images/dombai.jpg";
-import kaliningradImage from "../../images/kaliningradskaya_obl.jpg";
-import krasnayaPolyanaImage from "../../images/krasnaya_polyana.jpg";
-import karachaevskImage from "../../images/karachaevsk.jpg";
+import elbrusImage from "../images/elbrus.jpg";
+import dombaiImage from "../images/dombai.jpg";
+import kaliningradImage from "../images/kaliningradskaya_obl.jpg";
+import krasnayaPolyanaImage from "../images/krasnaya_polyana.jpg";
+import karachaevskImage from "../images/karachaevsk.jpg";
 
 export const initialCards = [
   {

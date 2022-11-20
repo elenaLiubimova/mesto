@@ -1,5 +1,5 @@
 export class Card {
-  constructor(link, name, cardTemplateSelector, { handleCardClick } ) {
+  constructor(link, name, cardTemplateSelector, { handleCardClick }) {
     this._link = link;
     this._name = name;
     this._cardTemplateSelector = cardTemplateSelector;
@@ -35,9 +35,7 @@ export class Card {
   _setEventListeners() {
     this._deleteButton.addEventListener("click", () => this._deleteCard());
     this._likeButton.addEventListener("click", () => this._toggleLike());
-    this._cardImage.addEventListener("click", () =>
-      this._handleCardClick()
-    );
+    this._cardImage.addEventListener("click", () => this._handleCardClick());
   }
 
   // Публичный метод, который возвращает работоспособный и наполненный данными элемент карточки
