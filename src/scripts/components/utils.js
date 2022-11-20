@@ -1,6 +1,6 @@
-import { PopupWithImage } from "./PopupWithImage.js";
+import { PopupWithImage } from "./PopupWithImage";
 import { Card } from "./Card.js";
-import { fullPhoto, fullPhotoContainerCaption } from "./constants.js";
+import { fullPhoto, fullPhotoContainerCaption } from "./constants";
 
 // Функция создания новой карточки
 export function createCard(item) {

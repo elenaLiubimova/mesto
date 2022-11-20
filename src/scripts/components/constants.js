@@ -1,27 +1,33 @@
+import elbrusImage from "../../images/elbrus.jpg";
+import dombaiImage from "../../images/dombai.jpg";
+import kaliningradImage from "../../images/kaliningradskaya_obl.jpg";
+import krasnayaPolyanaImage from "../../images/krasnaya_polyana.jpg";
+import karachaevskImage from "../../images/karachaevsk.jpg";
+
 export const initialCards = [
   {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+    name: "Эльбрус",
+    link: elbrusImage,
   },
   {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+    name: "Домбай",
+    link: dombaiImage,
   },
   {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+    name: "Калининградская область",
+    link: kaliningradImage,
   },
   {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+    name: "Красная поляна",
+    link: krasnayaPolyanaImage,
   },
   {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+    name: "Эльбрус",
+    link: elbrusImage,
   },
   {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+    name: "Карачаевск",
+    link: karachaevskImage,
   },
 ];
 export const editButton = document.querySelector(".edit-button");

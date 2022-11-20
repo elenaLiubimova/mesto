@@ -1,3 +1,5 @@
+import "./index.css";
+
 import {
   initialCards,
   editButton,
@@ -7,13 +9,13 @@ import {
   editForm,
   photoForm,
   validationObject,
-} from "./constants.js";
+} from "../scripts/components/constants.js";
 
-import { FormValidator } from "./FormValidator.js";
-import { Section } from "./Section.js";
-import { PopupWithForm } from "./PopupWithForm.js";
-import { UserInfo } from "./UserInfo.js";
-import { createCard } from "./utils.js";
+import { FormValidator } from "../scripts/components/FormValidator.js";
+import { Section } from "../scripts/components/Section.js";
+import { PopupWithForm } from "../scripts/components/PopupWithForm.js";
+import { UserInfo } from "../scripts/components/UserInfo.js";
+import { createCard } from "../scripts/components/utils.js";
 
 const profileValidation = new FormValidator(validationObject, editForm);
 const newCardValidation = new FormValidator(validationObject, photoForm);
@@ -39,6 +41,8 @@ const popupEditProfile = new PopupWithForm(".popup_type_profile", {
     return userInfo.setUserInfo(profileTitle, profileSubtitle);
   },
 });
+
+popupEditProfile.setEventListeners();
 
 // Установка слушателей валидации полям форм
 newCardValidation.enableValidation();
@@ -72,5 +76,4 @@ editButton.addEventListener("click", () => {
   profileValidation.resetValidation();
   userInfo.getUserInfo(profileTitle, profileSubtitle);
   popupEditProfile.open();
-  popupEditProfile.setEventListeners();
 });
