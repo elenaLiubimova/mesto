@@ -51,8 +51,6 @@ profileValidation.enableValidation();
 // Создание секции для карточек
 const cardList = new Section(
   {
-    items: initialCards,
-
     renderer: (item) => {
       cardList.addDefaultItem(createCard(item));
     },
@@ -61,7 +59,7 @@ const cardList = new Section(
 );
 
 // Отрисовка дефолтных карточек
-cardList.renderItems();
+cardList.renderItems(initialCards);
 
 // Слушатель кнопки добавления фото
 addButton.addEventListener("click", () => {
@@ -72,6 +70,6 @@ addButton.addEventListener("click", () => {
 // Слушатель кнопки редактирования профиля
 editButton.addEventListener("click", () => {
   profileValidation.resetValidation();
-  userInfo.getUserInfo(profileTitle, profileSubtitle);
   popupEditProfile.open();
+  userInfo.getUserInfo(profileTitle, profileSubtitle);
 });
