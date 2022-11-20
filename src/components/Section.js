@@ -3,6 +3,7 @@ export class Section {
     this._items = items;
     this._renderer = renderer;
     this._selector = selector;
+    this._container = document.querySelector(this._selector)
   }
 
   //Метод, который отвечает за отрисовку всех элементов
@@ -14,11 +15,11 @@ export class Section {
 
   //Метод добавления карточки в контейнер
   addItem(item) {
-    document.querySelector(this._selector).prepend(item);
+    this._container.prepend(item);
   }
 
   //Метод добавления дефолтной карточки в контейнер
   addDefaultItem(item) {
-    document.querySelector(this._selector).append(item);
+    this._container.append(item);
   }
 }

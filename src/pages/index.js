@@ -9,13 +9,13 @@ import {
   editForm,
   photoForm,
   validationObject,
-} from "../scripts/components/constants.js";
+} from "../utils/constants.js";
 
-import { FormValidator } from "../scripts/components/FormValidator.js";
-import { Section } from "../scripts/components/Section.js";
-import { PopupWithForm } from "../scripts/components/PopupWithForm.js";
-import { UserInfo } from "../scripts/components/UserInfo.js";
-import { createCard } from "../scripts/components/utils.js";
+import { FormValidator } from "../components/FormValidator.js";
+import { Section } from "../components/Section.js";
+import { PopupWithForm } from "../components/PopupWithForm.js";
+import { UserInfo } from "../components/UserInfo.js";
+import { createCard } from "../utils/utils.js";
 
 const profileValidation = new FormValidator(validationObject, editForm);
 const newCardValidation = new FormValidator(validationObject, photoForm);
@@ -65,14 +65,12 @@ cardList.renderItems();
 
 // Слушатель кнопки добавления фото
 addButton.addEventListener("click", () => {
-  popupWithPhotoForm.resetForm();
   newCardValidation.resetValidation();
   popupWithPhotoForm.open();
 });
 
 // Слушатель кнопки редактирования профиля
 editButton.addEventListener("click", () => {
-  popupEditProfile.resetForm();
   profileValidation.resetValidation();
   userInfo.getUserInfo(profileTitle, profileSubtitle);
   popupEditProfile.open();
