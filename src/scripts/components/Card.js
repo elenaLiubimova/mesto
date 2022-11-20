@@ -1,9 +1,9 @@
 export class Card {
-  constructor(link, name, cardTemplateSelector, openFullPhoto) {
+  constructor(link, name, cardTemplateSelector, { handleCardClick } ) {
     this._link = link;
     this._name = name;
     this._cardTemplateSelector = cardTemplateSelector;
-    this._openFullPhoto = openFullPhoto;
+    this._handleCardClick = handleCardClick;
   }
 
   // Метод получения разметки из темплейта
@@ -36,7 +36,7 @@ export class Card {
     this._deleteButton.addEventListener("click", () => this._deleteCard());
     this._likeButton.addEventListener("click", () => this._toggleLike());
     this._cardImage.addEventListener("click", () =>
-      this._openFullPhoto(this._link, this._name)
+      this._handleCardClick()
     );
   }
 
