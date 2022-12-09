@@ -30,7 +30,7 @@ export const initialCards = [
     link: karachaevskImage,
   },
 ];
-export const editButton = document.querySelector(".edit-button");
+export const editButtonTypeProfile = document.querySelector(".edit-button_type_profile");
 export const nameInput = document.forms.profile.elements.name;
 export const jobInput = document.forms.profile.elements.job;
 export const profileTitle = document.querySelector(".profile__title");

@@ -11,11 +11,14 @@
     </header>
     <main>
       <section class="profile container">
-        <img class="profile__photo" src="<%=require('./images/profile_photo.jpg')%>" alt="Фото профиля: Жак-Ив Кусто">
+        <div class="profile__photo-container">
+          <button class="edit-button edit-button_type_photo" type="button" aria-label="Кнопка редактирования фото"></button>
+          <img class="profile__photo" src="<%=require('./images/profile_photo.jpg')%>" alt="Фото профиля: Жак-Ив Кусто">
+        </div>
         <div class="profile__info-and-edit">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <p class="profile__subtitle">Исследователь океана</p>
-          <button class="edit-button" type="button" aria-label="Кнопка редактирования профиля"></button>
+          <button class="edit-button edit-button_type_profile" type="button" aria-label="Кнопка редактирования профиля"></button>
         </div>
         <button class="add-button" type="button" aria-label="Кнопка добавления фотографий"></button>
       </section>
@@ -37,6 +40,19 @@
           <label class="edit-form__field">
             <input class="edit-form__item" id="job-input" type="text" name="job" placeholder="Профессия" minlength="2" maxlength="200" required>
             <span class="edit-form__item-error job-input-error"></span>
+          </label>
+          <button class="save-button" type="submit" aria-label="Кнопка сохранения данных профиля">Сохранить</button>
+        </form>
+        <button class="close-button" type="button" aria-label="Кнопка закрытия окна редактирования профиля"></button>
+      </div>
+    </div>
+    <div class="popup popup_type_avatar">
+      <div class="popup__container popup__container_type_avatar">
+        <form class="edit-form" name="avatar" novalidate>
+          <h2 class="edit-form__title">Обновить аватар</h2>
+          <label class="edit-form__field">
+            <input class="edit-form__item" id="avatar-input" type="text" name="avatar-link" placeholder="Ссылка на аватар" required>
+            <span class="edit-form__item-error name-input-error"></span>
           </label>
           <button class="save-button" type="submit" aria-label="Кнопка сохранения данных профиля">Сохранить</button>
         </form>
@@ -69,13 +85,23 @@
         <button class="close-button" type="button" aria-label="Кнопка закрытия окна полноразмерного фото"></button>
       </div>
     </div>
+    <div class="popup popup_type_confirm">
+      <div class="popup__container popup__container_type_confirm">
+        <h2 class="popup__title">Вы уверены?</h2>
+        <button class="save-button" type="submit" aria-label="Кнопка подтверждения удаления карточки">Да</button>
+        <button class="close-button" type="button" aria-label="Кнопка закрытия окна подтвеждения удаления карточки"></button>
+      </div>
+    </div>
     <template id="card-template">
       <li class="card">
         <button class="delete-button" type="button" aria-label="Кнопка удаления фото"></button>
         <img class="card__image" src="#" alt="Альтернативный текст фото">
         <div class="card__title-and-like">
           <h2 class="card__title"></h2>
-          <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
+          <div class="card__like">
+            <button class="like-button like-button_inactive" type="button" aria-label="Кнопка 'Нравится'"></button>
+            <p class="card__like-counter">0</p>
+          </div>
         </div>
       </li>
     </template>
