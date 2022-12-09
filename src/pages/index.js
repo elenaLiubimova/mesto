@@ -9,14 +9,24 @@ import {
   editForm,
   photoForm,
   validationObject,
+  nameInput,
+  jobInput
 } from "../utils/constants.js";
 
 import { FormValidator } from "../components/FormValidator.js";
 import { Section } from "../components/Section.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
+import { Api } from "../components/Api.js";
 import { createCard } from "../utils/utils.js";
-import { api } from "../components/Api.js";
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-54",
+  headers: {
+    authorization: "8a554e8c-b62c-42c8-9826-7b4251a96cc4",
+    "Content-Type": "application/json",
+  },
+});
 
 const userInfo = new UserInfo({
   nameSelector: "#name-input",
@@ -25,18 +35,9 @@ const userInfo = new UserInfo({
 
 api.getProfileInfo()
   .then(res => {
-    console.log('ответ', res);
-    // userInfo.setUserInfo(res.name, res.about);
+    userInfo.setUserInfo(profileTitle, profileSubtitle, res.name, res.about);
   })
-
-api.getInitialCards()
-  .then(res => {
-    res.forEach(data => {
-      const card = createCard(item)
-    })
-
-    cardList.addItem(card);
-  })
+  .catch((error) => console.log(`Ошибка: ${error}`));
 
 const profileValidation = new FormValidator(validationObject, editForm);
 const newCardValidation = new FormValidator(validationObject, photoForm);
@@ -76,17 +77,22 @@ const cardList = new Section(
       cardList.addDefaultItem(createCard(item));
     },
   },
+
   ".photos__cards"
 );
 
-// Отрисовка дефолтных карточек
-cardList.renderItems(initialCards);
+// Отрисовка карточек с сервера
+api.getInitialCards()
+  .then((data) => {
+    data.forEach((item) => {
+      const card = createCard(item);
+      cardList.addItem(card);
+    });
+  })
+  .catch((error) => console.log(`Ошибка: ${error}`));
 
-// api.getInitialCards()
-//   .then(res => {
-//     console.log(res);
-//     cardList.renderItems(res);
-//   })
+// Отрисовка дефолтных карточек
+// cardList.renderItems();
 
 // Слушатель кнопки добавления фото
 addButton.addEventListener("click", () => {
@@ -98,5 +104,6 @@ addButton.addEventListener("click", () => {
 editButtonTypeProfile.addEventListener("click", () => {
   profileValidation.resetValidation();
   popupEditProfile.open();
+  api.setProfileInfo('Лена', 'Инженер');
   userInfo.getUserInfo(profileTitle, profileSubtitle);
 });

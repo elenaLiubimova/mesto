@@ -11,10 +11,10 @@ export class UserInfo {
     this._jobInput.value = profileSubtitle.textContent;
   }
 
-  setUserInfo(profileTitle, profileSubtitle) {
-    profileTitle.textContent = this._nameInput.value;
-    profileSubtitle.textContent = this._jobInput.value;
-    // this._nameInput.textContent = profileTitle;
-    // this._jobInput.textContent = profileSubtitle;
+  setUserInfo(profileTitle, profileSubtitle, name, job) {
+    // profileTitle.textContent = this._nameInput.value;
+    // profileSubtitle.textContent = this._jobInput.value;
+    profileTitle.textContent = name;
+    profileSubtitle.textContent = job;
   }
 }
