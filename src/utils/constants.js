@@ -1,35 +1,3 @@
-import elbrusImage from "../images/elbrus.jpg";
-import dombaiImage from "../images/dombai.jpg";
-import kaliningradImage from "../images/kaliningradskaya_obl.jpg";
-import krasnayaPolyanaImage from "../images/krasnaya_polyana.jpg";
-import karachaevskImage from "../images/karachaevsk.jpg";
-
-export const initialCards = [
-  {
-    name: "Эльбрус",
-    link: elbrusImage,
-  },
-  {
-    name: "Домбай",
-    link: dombaiImage,
-  },
-  {
-    name: "Калининградская область",
-    link: kaliningradImage,
-  },
-  {
-    name: "Красная поляна",
-    link: krasnayaPolyanaImage,
-  },
-  {
-    name: "Эльбрус",
-    link: elbrusImage,
-  },
-  {
-    name: "Карачаевск",
-    link: karachaevskImage,
-  },
-];
 export const editButtonTypeProfile = document.querySelector(".edit-button_type_profile");
 export const nameInput = document.forms.profile.elements.name;
 export const jobInput = document.forms.profile.elements.job;

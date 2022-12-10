@@ -1,7 +1,6 @@
 import "./index.css";
 
 import {
-  initialCards,
   editButtonTypeProfile,
   profileTitle,
   profileSubtitle,
@@ -20,7 +19,7 @@ import { UserInfo } from "../components/UserInfo.js";
 import { Api } from "../components/Api.js";
 import { createCard } from "../utils/utils.js";
 
-const api = new Api({
+export const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-54",
   headers: {
     authorization: "8a554e8c-b62c-42c8-9826-7b4251a96cc4",
@@ -44,9 +43,14 @@ const newCardValidation = new FormValidator(validationObject, photoForm);
 
 const popupWithPhotoForm = new PopupWithForm(".popup_type_add-photo", {
   handleFormSubmit: (item) => {
-    const newCard = createCard(item);
-    cardList.addItem(newCard);
-    popupWithPhotoForm.close();
+    api.addNewCard(item.name, item.link, item.likes)
+      .then(res => {
+        console.log(res);
+        const newCard = createCard(res);
+        cardList.addItem(newCard);
+        popupWithPhotoForm.close();
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
   },
 });
 
@@ -60,7 +64,8 @@ popupWithPhotoForm.setEventListeners();
 const popupEditProfile = new PopupWithForm(".popup_type_profile", {
   handleFormSubmit: () => {
     popupEditProfile.close();
-    return userInfo.setUserInfo(profileTitle, profileSubtitle);
+    api.setProfileInfo(nameInput.value, jobInput.value);
+    return userInfo.setUserInfo(profileTitle, profileSubtitle, nameInput.value, jobInput.value);
   },
 });
 
@@ -74,7 +79,7 @@ profileValidation.enableValidation();
 const cardList = new Section(
   {
     renderer: (item) => {
-      cardList.addDefaultItem(createCard(item));
+      cardList.addItem(createCard(item));
     },
   },
 
@@ -104,6 +109,5 @@ addButton.addEventListener("click", () => {
 editButtonTypeProfile.addEventListener("click", () => {
   profileValidation.resetValidation();
   popupEditProfile.open();
-  api.setProfileInfo('Лена', 'Инженер');
   userInfo.getUserInfo(profileTitle, profileSubtitle);
 });

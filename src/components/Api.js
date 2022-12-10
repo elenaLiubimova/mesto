@@ -34,4 +34,26 @@ export class Api {
     .then(res => res.ok ? res.json() : Promise.reject(res.status))
     .catch((error) => console.log(`Ошибка: ${error}`));
   }
+
+  addNewCard(name, link) {
+    return fetch(`${this._baseUrl}/cards`, {
+      headers: this._headers,
+      method: "POST",
+      body: JSON.stringify({
+        name,
+        link,
+      }),
+    })
+    .then(res => res.ok ? res.json() : Promise.reject(res.status))
+    .catch((error) => console.log(`Ошибка: ${error}`));
+  }
+
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
+      headers: this._headers,
+      method: "DELETE",
+    })
+    .then(res => res.ok ? res.json() : Promise.reject(res.status))
+    .catch((error) => console.log(`Ошибка: ${error}`));
+  }
 }

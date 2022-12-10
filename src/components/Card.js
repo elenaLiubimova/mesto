@@ -1,9 +1,12 @@
 export class Card {
-  constructor(link, name, cardTemplateSelector, { handleCardClick }) {
+  constructor(link, name, likes, id, cardTemplateSelector, { handleCardClick, handleDeleteButtonClick }) {
     this._link = link;
     this._name = name;
+    this._likes = likes;
+    this._id = id;
     this._cardTemplateSelector = cardTemplateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteButtonClick = handleDeleteButtonClick;
   }
 
   // Метод получения разметки из темплейта
@@ -21,19 +24,25 @@ export class Card {
   }
 
   // Метод обработки удаления карточки
-  _deleteCard() {
+  deleteCard() {
     this.cardElement.remove();
     this.cardElement = null;
   }
 
-  // Метод обработки лайка
+  // Метод переключения лайка
   _toggleLike() {
     this._likeButton.classList.toggle("like-button_inactive");
   }
 
+  // Метод подсчета лайков
+  _countLikes() {
+    const cardLikeCounter = this.cardElement.querySelector(".card__like-counter");
+    cardLikeCounter.textContent = this._likes.length;
+  }
+
   // Метод наложения обрабочиков событий
   _setEventListeners() {
-    this._deleteButton.addEventListener("click", () => this._deleteCard());
+    this._deleteButton.addEventListener("click", () => this._handleDeleteButtonClick(this._id));
     this._likeButton.addEventListener("click", () => this._toggleLike());
     this._cardImage.addEventListener("click", () => this._handleCardClick());
   }
@@ -45,6 +54,7 @@ export class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;
+    this._countLikes();
     return this.cardElement;
   }
 }
