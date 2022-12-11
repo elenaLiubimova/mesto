@@ -1,9 +1,24 @@
 export class Card {
-  constructor(link, name, cardTemplateSelector, { handleCardClick }) {
+  constructor(
+    link,
+    name,
+    likes,
+    id,
+    userId,
+    ownerId,
+    cardTemplateSelector,
+    { handleCardClick, handleDeleteButtonClick, handleLikeButtonClick }
+  ) {
     this._link = link;
     this._name = name;
+    this._likes = likes;
+    this._id = id;
+    this._userId = userId;
+    this._ownerId = ownerId;
     this._cardTemplateSelector = cardTemplateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteButtonClick = handleDeleteButtonClick;
+    this._handleLikeButtonClick = handleLikeButtonClick;
   }
 
   // Метод получения разметки из темплейта
@@ -21,20 +36,51 @@ export class Card {
   }
 
   // Метод обработки удаления карточки
-  _deleteCard() {
+  deleteCard() {
     this.cardElement.remove();
     this.cardElement = null;
   }
 
-  // Метод обработки лайка
-  _toggleLike() {
-    this._likeButton.classList.toggle("like-button_inactive");
+  //Метод определения, лайкнул ли текущий пользователь карточку
+  isLiked() {
+    const cardIsLiked = this._likes.find((user) => user._id === this._userId);
+
+    return cardIsLiked;
+  }
+
+  // Метод подсчета лайков
+  countLikes(likes) {
+    this._likes = likes;
+    const cardLikeCounter = this.cardElement.querySelector(
+      ".card__like-counter"
+    );
+    cardLikeCounter.textContent = this._likes.length;
+
+    if (this.isLiked()) {
+      this._setLike();
+    } else {
+      this._setDislike();
+    }
+  }
+
+  //Метод для закрашивания иконки лайка
+  _setLike() {
+    this._likeButton.classList.remove("like-button_inactive");
+  }
+
+  //Метод для снятия закрашивания иконки лайка
+  _setDislike() {
+    this._likeButton.classList.add("like-button_inactive");
   }
 
   // Метод наложения обрабочиков событий
   _setEventListeners() {
-    this._deleteButton.addEventListener("click", () => this._deleteCard());
-    this._likeButton.addEventListener("click", () => this._toggleLike());
+    this._deleteButton.addEventListener("click", () =>
+      this._handleDeleteButtonClick(this._id)
+    );
+    this._likeButton.addEventListener("click", () =>
+      this._handleLikeButtonClick(this._id)
+    );
     this._cardImage.addEventListener("click", () => this._handleCardClick());
   }
 
@@ -45,6 +91,11 @@ export class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;
+    this.countLikes(this._likes);
+    if (this._ownerId !== this._userId) {
+      this.cardElement.querySelector(".delete-button").disabled = true;
+      this.cardElement.querySelector(".delete-button").style.display = "none";
+    }
     return this.cardElement;
   }
 }

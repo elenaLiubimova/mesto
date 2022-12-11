@@ -25,7 +25,7 @@ export class Popup {
   }
 
   // Функция добавления слушателей формы
-  setEventListeners() {
+  setEventListeners(id, card) {
     this._popup.addEventListener("mousedown", (evt) => {
       if (
         evt.target.classList.contains("popup_opened") ||

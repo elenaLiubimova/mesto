@@ -1,38 +1,12 @@
-import elbrusImage from "../images/elbrus.jpg";
-import dombaiImage from "../images/dombai.jpg";
-import kaliningradImage from "../images/kaliningradskaya_obl.jpg";
-import krasnayaPolyanaImage from "../images/krasnaya_polyana.jpg";
-import karachaevskImage from "../images/karachaevsk.jpg";
-
-export const initialCards = [
-  {
-    name: "Эльбрус",
-    link: elbrusImage,
-  },
-  {
-    name: "Домбай",
-    link: dombaiImage,
-  },
-  {
-    name: "Калининградская область",
-    link: kaliningradImage,
-  },
-  {
-    name: "Красная поляна",
-    link: krasnayaPolyanaImage,
-  },
-  {
-    name: "Эльбрус",
-    link: elbrusImage,
-  },
-  {
-    name: "Карачаевск",
-    link: karachaevskImage,
-  },
-];
-export const editButton = document.querySelector(".edit-button");
+export const editButtonTypeProfile = document.querySelector(
+  ".edit-button_type_profile"
+);
+export const editButtonTypePhoto = document.querySelector(
+  ".edit-button_type_photo"
+);
 export const nameInput = document.forms.profile.elements.name;
 export const jobInput = document.forms.profile.elements.job;
+export const profilePhoto = document.querySelector(".profile__photo");
 export const profileTitle = document.querySelector(".profile__title");
 export const profileSubtitle = document.querySelector(".profile__subtitle");
 export const photosCards = document.querySelector(".photos__cards");
@@ -43,13 +17,21 @@ export const popupTypeAddPhoto = document.querySelector(
 );
 export const popupTypePhoto = document.querySelector(".popup_type_photo");
 export const editForm = document.forms.profile;
+export const saveProfileButton =
+  document.forms.profile.querySelector(".save-button");
 export const photoForm = document.forms.photo;
+export const avatarForm = document.forms.avatar;
 export const fullPhoto = document.querySelector(".full-photo");
 export const fullPhotoContainerCaption = document.querySelector(
   ".full-photo-container__caption"
 );
+export const avatarInput = document.forms.avatar.elements.avatar;
+export const saveAvatarButton =
+  document.forms.avatar.querySelector(".save-button");
 export const placeInput = document.forms.photo.elements.place;
 export const photoInput = document.forms.photo.elements.photo;
+export const savePhotoButton =
+  document.forms.photo.querySelector(".save-button");
 export const popups = document.querySelectorAll(".popup");
 
 export const validationObject = {
