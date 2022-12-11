@@ -1,15 +1,7 @@
 export class Section {
-  constructor({ renderer }, selector) {
-    this._renderer = renderer;
+  constructor(selector) {
     this._selector = selector;
-    this._container = document.querySelector(this._selector)
-  }
-
-  //Метод, который отвечает за отрисовку всех элементов
-  renderItems(items) {
-    items.forEach((item) => {
-      this._renderer(item);
-    });
+    this._container = document.querySelector(this._selector);
   }
 
   //Метод добавления карточки в контейнер

@@ -6,21 +6,17 @@ export class PopupWithConfirm extends Popup {
     this._handleConfirmClick = handleConfirmClick;
     this._submitButton = this._popup.querySelector(".save-button");
   }
-  
-  _clickEvent(id) {
-    this._handleConfirmClick(id);
+
+  _clickEvent(id, card) {
+    this._handleConfirmClick(id, card);
   }
 
-  // handleConfirmClick(deleteCardFunction) {
-  //   this.handleConfirmClick = deleteCardFunction;
-  // }
-
-  setEventListeners(id) {
+  setEventListeners(id, card) {
     this._submitButton.addEventListener("click", () => {
-      this._clickEvent(id);
+      this._clickEvent(id, card);
       this.close();
     });
 
-    super.setEventListeners(id);
+    super.setEventListeners(id, card);
   }
 }

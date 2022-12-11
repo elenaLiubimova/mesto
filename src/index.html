@@ -13,7 +13,7 @@
       <section class="profile container">
         <div class="profile__photo-container">
           <button class="edit-button edit-button_type_photo" type="button" aria-label="Кнопка редактирования фото"></button>
-          <img class="profile__photo" src="<%=require('./images/profile_photo.jpg')%>" alt="Фото профиля: Жак-Ив Кусто">
+          <img class="profile__photo" src="#" alt="Фото профиля">
         </div>
         <div class="profile__info-and-edit">
           <h1 class="profile__title"></h1>
@@ -51,8 +51,8 @@
         <form class="edit-form" name="avatar" novalidate>
           <h2 class="edit-form__title">Обновить аватар</h2>
           <label class="edit-form__field">
-            <input class="edit-form__item" id="avatar-input" type="text" name="avatar-link" placeholder="Ссылка на аватар" required>
-            <span class="edit-form__item-error name-input-error"></span>
+            <input class="edit-form__item" id="avatar-input" type="url" name="avatar" placeholder="Ссылка на аватар" required>
+            <span class="edit-form__item-error avatar-input-error"></span>
           </label>
           <button class="save-button" type="submit" aria-label="Кнопка сохранения данных профиля">Сохранить</button>
         </form>
