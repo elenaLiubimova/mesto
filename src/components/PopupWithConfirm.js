@@ -14,7 +14,6 @@ export class PopupWithConfirm extends Popup {
   setEventListeners(id, card) {
     this._submitButton.addEventListener("click", () => {
       this._clickEvent(id, card);
-      this.close();
     });
 
     super.setEventListeners(id, card);

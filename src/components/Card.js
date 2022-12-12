@@ -33,6 +33,9 @@ export class Card {
     this._cardTitle = this.cardElement.querySelector(".card__title");
     this._deleteButton = this.cardElement.querySelector(".delete-button");
     this._likeButton = this.cardElement.querySelector(".like-button");
+    this._cardLikeCounter = this.cardElement.querySelector(
+      ".card__like-counter"
+    );
   }
 
   // Метод обработки удаления карточки
@@ -51,10 +54,7 @@ export class Card {
   // Метод подсчета лайков
   countLikes(likes) {
     this._likes = likes;
-    const cardLikeCounter = this.cardElement.querySelector(
-      ".card__like-counter"
-    );
-    cardLikeCounter.textContent = this._likes.length;
+    this._cardLikeCounter.textContent = this._likes.length;
 
     if (this.isLiked()) {
       this._setLike();

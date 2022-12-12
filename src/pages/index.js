@@ -55,16 +55,22 @@ const api = new Api({
 
 // Создание экземпляра класса с информацией о пользователе
 const userInfo = new UserInfo({
-  nameSelector: "#name-input",
-  jobSelector: "#job-input",
+  nameSelector: ".profile__title",
+  jobSelector: ".profile__subtitle",
+  avatarSelector: ".profile__photo",
 });
 
-// Установка информации профиля с сервера
-api
-  .getProfileInfo()
-  .then((res) => {
-    userInfo.setUserInfo(profileTitle, profileSubtitle, res.name, res.about);
-    userId = res._id;
+// Установка информации профиля с сервера и отрисовка карточек с сервера
+Promise.all([api.getProfileInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    userInfo.setUserInfo(userData.name, userData.about);
+    userInfo.setAvatar(userData.avatar);
+    userId = userData._id;
+
+    cards.forEach((item) => {
+      const card = createCard(item);
+      cardList.addDefaultItem(card);
+    });
   })
   .catch((error) => console.log(`Ошибка: ${error}`));
 
@@ -75,12 +81,12 @@ const popupEditAvatar = new PopupWithForm(".popup_type_avatar", {
     api
       .changeAvatar(avatarInput.value)
       .then((res) => {
-        profilePhoto.src = res.avatar;
+        userInfo.setAvatar(res.avatar);
+        popupEditAvatar.close();
       })
       .catch((error) => console.log(`Ошибка: ${error}`))
       .finally(() => {
         renderLoading(false, saveAvatarButton);
-        popupEditAvatar.close();
       });
   },
 });
@@ -89,20 +95,20 @@ avatarValidation.enableValidation();
 
 // Слушатель кнопки добавления аватара
 editButtonTypePhoto.addEventListener("click", () => {
-  // avatarValidation.resetValidation();
   popupEditAvatar.open();
+  avatarValidation.resetValidation();
 });
 
 // Слушатель попапа редактирования аватара
 popupEditAvatar.setEventListeners();
 
 // Установка аватара с сервера
-api
-  .getProfileInfo()
-  .then((res) => {
-    profilePhoto.src = res.avatar;
-  })
-  .catch((error) => console.log(`Ошибка: ${error}`));
+// api
+//   .getProfileInfo()
+//   .then((res) => {
+//     profilePhoto.src = res.avatar;
+//   })
+//   .catch((error) => console.log(`Ошибка: ${error}`));
 
 // Экземпляр попапа подтверждения удаления фото
 const popupWithConfirm = new PopupWithConfirm(".popup_type_confirm", {
@@ -115,6 +121,15 @@ const popupWithConfirm = new PopupWithConfirm(".popup_type_confirm", {
       .catch((error) => console.log(`Ошибка: ${error}`));
   },
 });
+
+// Создание попапа для полноразмерного фото
+// const fullPhotoContainer = new PopupWithImage(
+//   ".popup_type_photo",
+//   item.link,
+//   item.name
+// );
+
+// fullPhotoContainer.setEventListeners();
 
 // Функция создания новой карточки
 function createCard(item) {
@@ -168,17 +183,6 @@ function createCard(item) {
 // Создание секции для карточек
 const cardList = new Section(".photos__cards");
 
-// Отрисовка карточек с сервера
-api
-  .getInitialCards()
-  .then((data) => {
-    data.forEach((item) => {
-      const card = createCard(item);
-      cardList.addDefaultItem(card);
-    });
-  })
-  .catch((error) => console.log(`Ошибка: ${error}`));
-
 // Создание экземпляра попапа добавления фото
 const popupWithPhotoForm = new PopupWithForm(".popup_type_add-photo", {
   handleFormSubmit: (item) => {
@@ -188,11 +192,11 @@ const popupWithPhotoForm = new PopupWithForm(".popup_type_add-photo", {
       .then((res) => {
         const newCard = createCard(res);
         cardList.addItem(newCard);
+        popupWithPhotoForm.close();
       })
       .catch((error) => console.log(`Ошибка: ${error}`))
       .finally(() => {
         renderLoading(false, savePhotoButton);
-        popupWithPhotoForm.close();
       });
   },
 });
@@ -208,16 +212,14 @@ const popupEditProfile = new PopupWithForm(".popup_type_profile", {
       .setProfileInfo(nameInput.value, jobInput.value)
       .then((res) => {
         userInfo.setUserInfo(
-          profileTitle,
-          profileSubtitle,
           res.name,
-          res.about
+          res.about,
         );
+        popupEditProfile.close();
       })
       .catch((error) => console.log(`Ошибка: ${error}`))
       .finally(() => {
         renderLoading(false, saveProfileButton);
-        popupEditProfile.close();
       });
   },
 });
@@ -230,8 +232,8 @@ newCardValidation.enableValidation();
 
 // Слушатель кнопки добавления фото
 addButton.addEventListener("click", () => {
-  newCardValidation.resetValidation();
   popupWithPhotoForm.open();
+  newCardValidation.resetValidation();
 });
 
 profileValidation.enableValidation();
@@ -240,5 +242,6 @@ profileValidation.enableValidation();
 editButtonTypeProfile.addEventListener("click", () => {
   profileValidation.resetValidation();
   popupEditProfile.open();
-  userInfo.getUserInfo(profileTitle, profileSubtitle);
+  nameInput.value = userInfo.getUserInfo().name;
+  jobInput.value = userInfo.getUserInfo().job;
 });
