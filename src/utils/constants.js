@@ -6,9 +6,6 @@ export const editButtonTypePhoto = document.querySelector(
 );
 export const nameInput = document.forms.profile.elements.name;
 export const jobInput = document.forms.profile.elements.job;
-export const profilePhoto = document.querySelector(".profile__photo");
-export const profileTitle = document.querySelector(".profile__title");
-export const profileSubtitle = document.querySelector(".profile__subtitle");
 export const photosCards = document.querySelector(".photos__cards");
 export const addButton = document.querySelector(".add-button");
 export const popupTypeProfile = document.querySelector(".popup_type_profile");
@@ -21,10 +18,6 @@ export const saveProfileButton =
   document.forms.profile.querySelector(".save-button");
 export const photoForm = document.forms.photo;
 export const avatarForm = document.forms.avatar;
-export const fullPhoto = document.querySelector(".full-photo");
-export const fullPhotoContainerCaption = document.querySelector(
-  ".full-photo-container__caption"
-);
 export const avatarInput = document.forms.avatar.elements.avatar;
 export const saveAvatarButton =
   document.forms.avatar.querySelector(".save-button");
