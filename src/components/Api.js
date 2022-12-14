@@ -22,14 +22,13 @@ export class Api {
     }).then(this._checkResponse);
   }
 
-  setProfileInfo(name, job /*, avatarLink*/) {
+  setProfileInfo(name, job) {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
       method: "PATCH",
       body: JSON.stringify({
         name: name,
         about: job,
-        // avatar: avatar,
       }),
     }).then(this._checkResponse);
   }
