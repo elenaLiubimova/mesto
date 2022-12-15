@@ -220,6 +220,7 @@ profileValidation.enableValidation();
 editButtonTypeProfile.addEventListener("click", () => {
   profileValidation.resetValidation();
   popupEditProfile.open();
-  nameInput.value = userInfo.getUserInfo().name;
-  jobInput.value = userInfo.getUserInfo().job;
+  const info = userInfo.getUserInfo();
+  nameInput.value = info.name;
+  jobInput.value = info.job;
 });
